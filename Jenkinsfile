@@ -1,17 +1,34 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Install NPM Packages') {
       steps {
-        echo 'installing npm packages'
+        echo 'Installing npm packages'
         bat 'npm install'
       }
     }
 
-    stage('Test') {
+    stage('Unit Testing') {
       steps {
-        echo 'testing the package'
+        echo 'Running Unit Tests'
         bat 'npm test'
+      }
+    }
+
+    stage('Code Analysis') {
+      steps {
+        echo 'Running Code Analysis'
+      }
+    }
+
+    stage('Build Deploy Code') {
+      when {
+        branch 'main'
+      }
+      steps {
+        echo 'Building Artifact'
+        echo 'Deploying Code'
+        bat 'npm start'
       }
     }
 

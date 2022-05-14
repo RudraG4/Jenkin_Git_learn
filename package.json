@@ -6,7 +6,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0",
-    "start": "node ./src/server.js",
+    "start": "pm2 restart ecosystem.config.cjs --only server --env production",
     "dev:start": "nodemon ./src/server.js -e js,css,html"
   },
   "repository": {
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/RudraG4/Jenkin_Git_learn#readme",
   "dependencies": {
     "dotenv": "^16.0.1",
-    "express": "^4.18.1"
+    "express": "^4.18.1",
+    "pm2": "^5.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
