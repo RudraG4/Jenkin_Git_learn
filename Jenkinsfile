@@ -1,19 +1,42 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Cleanup Workspace') {
       steps {
-        echo 'installing npm packages'
+        cleanWs()
+        echo "Cleaned Up Workspace For Project"
+      }
+    }
+
+    stage('Install NPM Packages') {
+      steps {
+        echo 'Installing npm packages'
         bat 'npm install'
       }
     }
 
-    stage('Test') {
-      steps {
-        echo 'testing the package'
-        bat 'npm test'
-      }
+    stage('Unit Testing') {
+        steps {
+          echo "Running Unit Tests"
+          bat "npm test"
+        }
     }
 
+    stage('Code Analysis') {
+        steps {
+            echo "Running Code Analysis"
+        }
+    }
+
+    stage('Build Deploy Code') {
+      when {
+          branch 'main'
+      }
+      steps {
+          echo "Building Artifact"
+          echo "Deploying Code"
+          bat "npm start"
+      }
+    }
   }
 }
