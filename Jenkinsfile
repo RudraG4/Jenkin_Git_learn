@@ -2,20 +2,23 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      agent any
-      environment {
-        CI = 'true'
-      }
       steps {
-        echo 'Installing Packages'
-        bat(script: 'npm install', returnStatus: true, returnStdout: true)
+        echo 'installing npm packages'
+        bat 'npm install'
+      }
+    }
+
+    stage('Test') {
+      steps {
+        echo 'testing the package'
+        bat 'npm test'
       }
     }
 
     stage('Deploy') {
       steps {
-        echo 'Deploying the package'
-        bat(script: 'npm start', returnStatus: true, returnStdout: true)
+        echo 'deploying  the package'
+        bat 'npm start'
       }
     }
 
