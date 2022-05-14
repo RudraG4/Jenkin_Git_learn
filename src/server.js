@@ -4,6 +4,8 @@ import { fileURLToPath } from "url"
 import path from "path"
 
 dotenv.config()
+const PORT = process.env.PORT || 3000
+console.log(PORT);
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
@@ -14,4 +16,4 @@ app.get('/', (request, response) => {
     response.sendFile(path.resolve(__dirname, 'index.html'))
 })
 
-app.listen(3000, () => console.log('Listening on port [:3000]'))
+app.listen(PORT, () => console.log(`Listening on port [:${PORT}]`))
